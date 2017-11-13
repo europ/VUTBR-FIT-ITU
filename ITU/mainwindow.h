@@ -17,6 +17,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+
+private slots:
+        //slot for button 2
+        void button2_press();
+
+        void button3_press();
 };
 
 #endif // MAINWINDOW_H
