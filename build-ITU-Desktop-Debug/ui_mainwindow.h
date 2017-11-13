@@ -15,6 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -22,17 +24,61 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
+    QAction *actionLoad;
+    QAction *actionSave;
+    QAction *actionSave_as;
+    QAction *actionExit;
+    QAction *actionExit_2;
+    QAction *actionHelp;
+    QAction *actionAbout;
     QWidget *centralWidget;
+    QMenuBar *menuBar;
+    QMenu *menuFile;
+    QMenu *menuHelp;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(633, 467);
+        MainWindow->resize(1400, 900);
+        MainWindow->setLayoutDirection(Qt::LeftToRight);
+        MainWindow->setAutoFillBackground(false);
+        actionLoad = new QAction(MainWindow);
+        actionLoad->setObjectName(QStringLiteral("actionLoad"));
+        actionSave = new QAction(MainWindow);
+        actionSave->setObjectName(QStringLiteral("actionSave"));
+        actionSave_as = new QAction(MainWindow);
+        actionSave_as->setObjectName(QStringLiteral("actionSave_as"));
+        actionExit = new QAction(MainWindow);
+        actionExit->setObjectName(QStringLiteral("actionExit"));
+        actionExit_2 = new QAction(MainWindow);
+        actionExit_2->setObjectName(QStringLiteral("actionExit_2"));
+        actionHelp = new QAction(MainWindow);
+        actionHelp->setObjectName(QStringLiteral("actionHelp"));
+        actionAbout = new QAction(MainWindow);
+        actionAbout->setObjectName(QStringLiteral("actionAbout"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         MainWindow->setCentralWidget(centralWidget);
+        menuBar = new QMenuBar(MainWindow);
+        menuBar->setObjectName(QStringLiteral("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 1400, 25));
+        menuFile = new QMenu(menuBar);
+        menuFile->setObjectName(QStringLiteral("menuFile"));
+        menuHelp = new QMenu(menuBar);
+        menuHelp->setObjectName(QStringLiteral("menuHelp"));
+        MainWindow->setMenuBar(menuBar);
+
+        menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuHelp->menuAction());
+        menuFile->addAction(actionLoad);
+        menuFile->addAction(actionSave);
+        menuFile->addAction(actionSave_as);
+        menuFile->addAction(actionExit);
+        menuFile->addAction(actionExit_2);
+        menuHelp->addAction(actionHelp);
+        menuHelp->addAction(actionAbout);
 
         retranslateUi(MainWindow);
 
@@ -41,7 +87,16 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Wireless network tracking", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Wireless Network Tracking", 0));
+        actionLoad->setText(QApplication::translate("MainWindow", "Open", 0));
+        actionSave->setText(QApplication::translate("MainWindow", "Save", 0));
+        actionSave_as->setText(QApplication::translate("MainWindow", "Save as", 0));
+        actionExit->setText(QApplication::translate("MainWindow", "Close", 0));
+        actionExit_2->setText(QApplication::translate("MainWindow", "Exit", 0));
+        actionHelp->setText(QApplication::translate("MainWindow", "Help", 0));
+        actionAbout->setText(QApplication::translate("MainWindow", "About", 0));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
+        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
     } // retranslateUi
 
 };
