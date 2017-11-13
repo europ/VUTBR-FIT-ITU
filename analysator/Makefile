@@ -1,5 +1,5 @@
 CC=g++
-CF=-Wall -Wextra -std=c++11 -pedantic -g
+CF=-Wall -Wextra -std=c++11 -pedantic
 
 all: main
 

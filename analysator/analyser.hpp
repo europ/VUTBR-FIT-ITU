@@ -21,14 +21,19 @@ struct wifi_network_ID {
 class Data {
     private:
         // all wifi networks
+        unsigned int count;
         std::vector<wifi_network> data;
 
     public:
-        // constructor
+
         Data();
 
+        unsigned int size();
+        bool reset();
+        bool refresh();
+
         // print all wifi networks
-        std::string DEBUG();
+        void DEBUG();
 };
 
 #endif
