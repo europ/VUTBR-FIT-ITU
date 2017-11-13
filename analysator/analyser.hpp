@@ -28,10 +28,28 @@ class Data {
 
         Data();
 
+        void reset();
+
+        /*
+         * Method returns actual data (vector) size.
+         */
         unsigned int size();
-        bool reset();
+        
+        /*
+         * RESET is required BEFORE refresh()
+         * return value:
+         *     on ERROR false
+         *     on SUCCESS true
+         */
         bool refresh();
 
+        /*
+         * METHODS get_*(idx)
+         * 
+         * return value:
+         *     on ERROR empty string
+         *     on SUCCESS string
+         */
         std::string get_SSID(unsigned int idx);
         std::string get_BSSID(unsigned int idx);
         std::string get_SSIDHEX(unsigned int idx);

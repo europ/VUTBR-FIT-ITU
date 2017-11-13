@@ -4,13 +4,6 @@
 #include "analyser.hpp"
 #include "constants.hpp"
 
-#define PRINT_VEC(vector) for (auto i = vector.begin(); i != vector.end(); ++i) std::cout << *i << std::endl;
-#define PRINT(data) std::cout << data << std::endl;
-#define ECHO() std::cout << std::endl;
-
-#define SEPARATOR_LINE "==========================\n"
-#define STRING_EMPTY ""
-
 //#################################################################################################
 
 std::string uitos(unsigned int num) {
@@ -97,7 +90,7 @@ unsigned int Data::size() {
     return count;
 }
 
-bool Data::reset() {
+void Data::reset() {
     count = 0;
     data.clear();   
 }
