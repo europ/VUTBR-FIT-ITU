@@ -32,6 +32,16 @@ class Data {
         bool reset();
         bool refresh();
 
+        std::string get_SSID(unsigned int idx);
+        std::string get_BSSID(unsigned int idx);
+        std::string get_SSIDHEX(unsigned int idx);
+        std::string get_CHAN(unsigned int idx);
+        std::string get_FREQ(unsigned int idx);
+        std::string get_RATE(unsigned int idx);
+        std::string get_SIGNAL(unsigned int idx);
+        std::string get_SECURITY(unsigned int idx);
+        std::string get_RSNFLAGS(unsigned int idx);
+
         // print all wifi networks
         void DEBUG();
 };
