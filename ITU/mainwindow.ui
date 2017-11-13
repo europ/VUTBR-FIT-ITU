@@ -22,7 +22,13 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout"/>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>

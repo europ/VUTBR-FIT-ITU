@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -32,6 +33,8 @@ public:
     QAction *actionHelp;
     QAction *actionAbout;
     QWidget *centralWidget;
+    QGridLayout *gridLayout_2;
+    QGridLayout *gridLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -60,6 +63,16 @@ public:
         actionAbout->setObjectName(QStringLiteral("actionAbout"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        gridLayout_2 = new QGridLayout(centralWidget);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+
+        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
