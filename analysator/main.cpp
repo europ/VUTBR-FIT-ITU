@@ -3,8 +3,13 @@
 int main(int argc, char* argv[]) {
 
 	Data* d = new Data();
-	d->refresh();
-	d->DEBUG();
+	d->reset();
+
+	while(d->refresh() != true) {
+		d->reset();
+	};
+
+	d->DEBUG(); // print data
 
 	return 0;
 }
