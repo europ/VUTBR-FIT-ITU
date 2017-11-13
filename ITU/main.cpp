@@ -6,18 +6,18 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
 
-    w.setGeometry(
+    MainWindow* main_window = new MainWindow;
+
+    main_window->setGeometry(
         QStyle::alignedRect(
             Qt::LeftToRight,
             Qt::AlignCenter,
-            w.size(),
+            main_window->size(),
             qApp->desktop()->availableGeometry()
         )
     );
-
-    w.show();
+    main_window->show();
 
     return a.exec();
 }
