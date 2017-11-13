@@ -41,7 +41,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(1400, 900);
+        MainWindow->resize(800, 600);
         MainWindow->setLayoutDirection(Qt::LeftToRight);
         MainWindow->setAutoFillBackground(false);
         actionLoad = new QAction(MainWindow);
@@ -63,7 +63,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1400, 25));
+        menuBar->setGeometry(QRect(0, 0, 800, 25));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
