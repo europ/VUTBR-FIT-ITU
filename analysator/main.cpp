@@ -1,15 +1,15 @@
 #include "analyser.hpp"
 
+#define LOAD(d) while(d->refresh() != true);
+#define DEBUG(d) d->DEBUG();
+
 int main(int argc, char* argv[]) {
 
 	Data* d = new Data();
-	d->reset();
 
-	while(d->refresh() != true) {
-		d->reset();
-	};
+	LOAD(d); // load data
 
-	d->DEBUG(); // print data
+	DEBUG(d); // print info
 
 	return 0;
 }

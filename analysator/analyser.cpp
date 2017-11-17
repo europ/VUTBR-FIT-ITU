@@ -31,7 +31,7 @@ bool execute_cmd(std::vector<std::string>& data, std::string cmd) {
     shell = popen(cmd.c_str(), "r");
     if (shell == NULL)
         return false;
-    
+
     std::string line;
     while(int c = fgetc(shell)) {
         if (c == EOF) {
@@ -80,7 +80,7 @@ void Data::DEBUG() {
         for (std::vector<wifi_network>::const_iterator i = data.begin(); i != data.end(); ++i) {
             output += SEPARATOR_LINE + DEBUG_wifi_network(&(*i)); // convert structure of wifi_network to string
         }
-        output += SEPARATOR_LINE;        
+        output += SEPARATOR_LINE;
         std::cout << output;
     }
 }
@@ -92,10 +92,12 @@ unsigned int Data::size() {
 
 void Data::reset() {
     count = 0;
-    data.clear();   
+    data.clear();
 }
 
 bool Data::refresh() {
+
+    this->reset();
 
     std::vector<std::string>
         VEC_SSID,
