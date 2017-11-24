@@ -3,11 +3,20 @@
 #include <QFrame>
 #include <QStyle>
 #include <QDesktopWidget>
+#include "analyser.hpp"
+
+
+#define LOAD(d) while(d->refresh() != true);
+#define DEBUG(d) d->DEBUG();
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow* main_window = new MainWindow;
+
+
+
+
 
     main_window->setGeometry(
         QStyle::alignedRect(
