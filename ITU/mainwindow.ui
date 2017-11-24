@@ -69,55 +69,21 @@
       <string>5GHz</string>
      </property>
     </widget>
-    <widget class="Line" name="line">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>130</y>
-       <width>481</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="Line" name="line_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>220</y>
-       <width>491</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="Line" name="line_3">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>320</y>
-       <width>491</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </widget>
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>340</y>
+      <y>390</y>
       <width>85</width>
       <height>27</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>All</string>
+     </property>
+    </item>
     <item>
      <property name="text">
       <string>1</string>
@@ -201,7 +167,7 @@
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>310</y>
+      <y>360</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -214,7 +180,7 @@
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>240</y>
+      <y>280</y>
       <width>181</width>
       <height>22</height>
      </rect>
@@ -227,13 +193,42 @@
     <property name="geometry">
      <rect>
       <x>610</x>
-      <y>270</y>
+      <y>310</y>
       <width>181</width>
       <height>22</height>
      </rect>
     </property>
     <property name="text">
      <string>Only free networks</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="radioButton_3">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>250</y>
+      <width>181</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>All networks</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>40</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
