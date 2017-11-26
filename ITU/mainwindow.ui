@@ -34,7 +34,7 @@
       <x>60</x>
       <y>90</y>
       <width>481</width>
-      <height>401</height>
+      <height>403</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -229,6 +229,32 @@
     </property>
     <property name="text">
      <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>480</y>
+      <width>16</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>90</y>
+      <width>31</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>100</string>
     </property>
    </widget>
   </widget>

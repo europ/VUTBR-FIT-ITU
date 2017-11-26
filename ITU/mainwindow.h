@@ -2,7 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "analyser.hpp"
+#include <QLine>
+#include <QDebug>
+#include <QTimer>
+#include <QFrame>
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +28,8 @@ private slots:
         void button2_press();
 
         void button3_press();
+
+        void update();
 };
 
 #endif // MAINWINDOW_H
