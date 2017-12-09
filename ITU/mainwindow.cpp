@@ -10,12 +10,14 @@
 #include <iostream>
 #include <unistd.h>
 
-#define LOAD(d) while(d->refresh() != true);
-#define DEBUG(d) d->DEBUG();
-#define SIZE(d) d->size();
+#define MAX_NETWORKS 30
+
+#define LOAD(d) while(d.refresh() != true);
+#define DEBUG(d) d.DEBUG();
+#define SIZE(d) d.size();
 
 bool geci = false;
-QFrame * lines[50];
+QFrame * lines[MAX_NETWORKS];
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -24,14 +26,14 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
 
-    Data* d = new Data();
+    Data d;
     LOAD(d); // load data
 
     unsigned size = SIZE(d);
 
     DEBUG(d); // print info
 
-    std::string tmp = d->get_SSID(5);
+    std::string tmp = d.get_SSID(5);
 
 
     ui->setupUi(this);
@@ -86,20 +88,26 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-//while(1){
-   // QFrame *lines[size];
-    for(unsigned i = 0; i< 50;i++){
+
+
+
+    for(unsigned i = 0; i< MAX_NETWORKS;i++){
         lines[i] = new QFrame(ui->frame);
         lines[i]->setFrameShape(QFrame::HLine);
         lines[i]->setFrameShadow(QFrame::Sunken);
-        int y = atoi(d->get_SIGNAL(i).c_str());
-        //std::cout << y;
-        y =y * 4;
+        int y;
+
+        if(i<size){
+            y = atoi(d.get_SIGNAL(i).c_str());
+        }
+
+        y *= 4;
+
         if(i<size){
             lines[i]->setGeometry(0,400-y,481,1);
         }
         else{
-           lines[i]->setGeometry(0,403,481,1);
+            lines[i]->setGeometry(0,403,481,1);
         }
 
         lines[i]->setStyleSheet(" border: 1px solid red;");
@@ -108,13 +116,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButton_3->setStyleSheet("background-color: red; color: #eae600 ");
     ui->pushButton_2->setStyleSheet("background-color: #eae600; color: black");
 
-   // asd = lines;
 
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(10000);
-
-   // update();
+    timer->start(3000);
 
 
 }
@@ -144,75 +149,39 @@ void MainWindow::button3_press(){
 
 
 void MainWindow::update(){
-    Data* d = new Data();
+    Data d;
 
     LOAD(d);
     unsigned size = SIZE(d);
 
-     //ui->label_3->setText(d->get_SSID(5).c_str());
-    //if(geci){
-        //Qframe **lines = asd;
-      //  for(unsigned i = 0; i< size;i++){
 
-            //delete asd[i];
-            /*lines[i] = new QFrame(ui->frame);
-            lines[i]->setFrameShape(QFrame::HLine);
-            lines[i]->setFrameShadow(QFrame::Sunken);
-            int y = atoi(d->get_SIGNAL(i).c_str());
-            //std::cout << y;
-            y =y * 4;
-
-            lines[i]->setGeometry(0,400-y,481,1);
-            lines[i]->setStyleSheet(" border: 1px solid red;");
-        *///}
-   // }
-
-    /*for(int i = 0; i < size;i++){
-        delete lines[i];
-    }*/
     printf("geciiii\n");
-    /*Data* d = new Data();
 
-    LOAD(d);
-    unsigned size = SIZE(d);
-*/
     std::cout << size << std::endl;
-    //QFrame *lines[size];
 
-    for(unsigned i = 0; i< size;i++){
-        //lines[i] = new QFrame(ui->frame);
-        //lines[i]->setFrameShape(QFrame::HLine);
-        //lines[i]->setFrameShadow(QFrame::Sunken);
-        int y = atoi(d->get_SIGNAL(i).c_str());
+
+    for(unsigned i = 0; i< MAX_NETWORKS;i++){
+
+        int y;
+
+        if(i<size){
+            y = atoi(d.get_SIGNAL(i).c_str());
+        }
         //std::cout << y;
-        y =y * 4;
+
+        y *= 4;
+
+
         if(i < size){
              lines[i]->setGeometry(0,400-y,481,1);
         }
         else{
-            lines[i]->setGeometry(0,403,481,1);
+             lines[i]->setGeometry(0,403,481,1);
         }
+        printf("i = %d\n",i);
 
-        lines[i]->repaint();
-        //lines[i]->setStyleSheet(" border: 1px solid red;");
-        //this->repaint();
-        //ui->frame->repaint();
     }
 
-    //asd = lines;
-
-    //geci = true;
-    //sleep(2);
-
-
-
-    //this->repaint();
-    //this->viewport()->repaint();
-    //this->parentWidget()->repaint();
-    //this->parentWidget()->parentWidget()->repaint();
-    //ui->frame->repaint();
-    //ui->setupUi(this);
-    //delete d;
 
 }
 
