@@ -60,27 +60,9 @@ std::string DEBUG_wifi_network(const wifi_network* ID) {
     std::string str;
 
     str += "UID:      " + uitos(ID->UID) + "\n";
-
-    str += "SSID:     ";
-    if (std::regex_match(ID->SSID,regex_pattern)) {
-        str += STRING_HIDDEN_WIFI_NETWORK;
-    }
-    else {
-        str += ID->SSID;
-    }
-    str += "\n";
-
+    str += "SSID:     " + ((std::regex_match(ID->SSID,regex_pattern))    ? STRING_HIDDEN_WIFI_NETWORK : ID->SSID)    + "\n";
     str += "BSSID:    " + ID->BSSID      + "\n";
-
-    str += "SSIDHEX:  ";
-    if (std::regex_match(ID->SSID,regex_pattern)) {
-        str += STRING_HIDDEN_WIFI_NETWORK;
-    }
-    else {
-        str += ID->SSIDHEX;
-    }
-    str += "\n";
-
+    str += "SSIDHEX:  " + ((std::regex_match(ID->SSIDHEX,regex_pattern)) ? STRING_HIDDEN_WIFI_NETWORK : ID->SSIDHEX) + "\n";
     str += "CHAN:     " + ID->CHAN       + "\n";
     str += "FREQ:     " + ID->FREQ       + "\n";
     str += "RATE:     " + ID->RATE       + "\n";
