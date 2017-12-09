@@ -10,24 +10,30 @@
 #include <stdlib.h>
 #include <iostream>
 #include <unistd.h>
+#include <QApplication>
+#include <QFrame>
+#include <QStyle>
+#include <QDesktopWidget>
+#include <QVBoxLayout>
+#include <QLabel>
+#include "macros.hpp"
 
 #define MAX_NETWORKS 10
 
-#define LOAD(d) while(d.refresh() != true);
-#define DEBUG(d) d.DEBUG();
-#define SIZE(d) d.size();
 
 bool geci = false;
 QFrame * lines[MAX_NETWORKS];
 QPushButton * ssid_names[MAX_NETWORKS];
+int wifinumber;
+Data d;
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
 
-
-    Data d;
     LOAD(d); // load data
 
     unsigned size = SIZE(d);
@@ -97,7 +103,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButton_3,SIGNAL(released()),this,SLOT(button3_press()));
 
 
-
     for(unsigned i = 0; i< MAX_NETWORKS;i++){
         lines[i] = new QFrame(ui->frame);
         ssid_names[i] = new QPushButton(this);
@@ -110,7 +115,6 @@ MainWindow::MainWindow(QWidget *parent) :
         }
 
         if(i<size){
-            //lines[i]->setGeometry(0,400-y,481,1);
             lines[i]->setGeometry(50*i+8,4+4*(100-y),15,400);
         }
         else{
@@ -126,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
         font.setPointSize(7);
         ssid_names[i]->setFont(font);
 
-
+        connect(ssid_names[i], SIGNAL(released()), this, SLOT(show_network_info()));
     }
 
 
@@ -170,13 +174,10 @@ void MainWindow::button3_press(){
     QPushButton * button = (QPushButton*)sender();
     ui->pushButton_2->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_3->setStyleSheet("background-color: #f4f38b; color: black");
-    //ui->label->setText(button->text());
 }
 
 
 void MainWindow::update(){
-    Data d;
-
     LOAD(d);
     unsigned size = SIZE(d);
 
@@ -193,17 +194,84 @@ void MainWindow::update(){
         }
 
 
-        if(i < size){
-             //lines[i]->setGeometry(0,400-y,481,1);
+        if(i < size){;
             lines[i]->setGeometry(50*i+8,4+4*(100-y),15,400);
+            ssid_names[i]->setText(d.get_SSID(i).c_str());
         }
         else{
              lines[i]->setGeometry(0,404,481,1);
+             ssid_names[i]->setText("");
         }
-        //printf("i = %d\n",i);
 
+        lines[i]->repaint();
+        ssid_names[i]->repaint();
     }
 
 
 }
 
+void MainWindow::show_network_info(){
+
+    QPushButton * button = (QPushButton*)sender();
+    QString qstrssid = button->text();
+    std::string ssid = qstrssid.toUtf8().constData();
+
+
+    //get index of clicked network
+    unsigned index;
+
+    for(unsigned i=0;i<d.size();i++){
+        if(d.get_SSID(i) == ssid){
+            index = i;
+            break;
+        }
+    }
+
+    //printf("%d\n",index);
+
+    QWidget *wdg = new QWidget;
+    wdg->setMinimumSize(400, 300);
+    wdg->setMaximumSize(400, 300);
+    wdg->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    wdg->setWindowTitle("Detailed WI-FI information");
+
+
+    QVBoxLayout *layout = new QVBoxLayout();
+
+
+    QLabel *label[10];
+    for(int i=0; i< 10; i++){
+        label[i] = new QLabel(this);
+        //label[i]->setText("Random String");
+        //layout->addWidget(label[i]);
+    }
+   // wdg->setLayout(layout);
+
+    label[0]->setText("gecc");
+    label[1]->setText("gecc");
+    label[2]->setText("gecc");
+    label[3]->setText("gecc");
+    label[4]->setText("gecc");
+    label[5]->setText("gecc");
+    label[6]->setText("gecc");
+    label[7]->setText("gecc");
+    label[8]->setText("gecc");
+    label[9]->setText("gecc");
+
+    for(int i=0; i< 10; i++){
+        layout->addWidget(label[i]);
+    }
+
+    wdg->setLayout(layout);
+
+    wdg->setGeometry(
+        QStyle::alignedRect(
+            Qt::LeftToRight,
+            Qt::AlignCenter,
+            wdg->size(),
+            qApp->desktop()->availableGeometry()
+        )
+    );
+
+    wdg->show();
+}

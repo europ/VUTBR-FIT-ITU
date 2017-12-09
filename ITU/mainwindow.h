@@ -21,7 +21,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-
+    MainWindow *new_window;
 
 private slots:
         //slot for button 2
@@ -30,6 +30,8 @@ private slots:
         void button3_press();
 
         void update();
+
+        void show_network_info();
 };
 
 #endif // MAINWINDOW_H

@@ -3,12 +3,7 @@
 #include <QFrame>
 #include <QStyle>
 #include <QDesktopWidget>
-#include "analyser.hpp"
 
-
-#define LOAD(d) while(d->refresh() != true);
-#define DEBUG(d) d->DEBUG();
-#define SIZE(d) d->size();
 
 int main(int argc, char *argv[])
 {
