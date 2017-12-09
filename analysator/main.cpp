@@ -1,9 +1,10 @@
 #include "analyser.hpp"
-
-#define LOAD(d) while(d->refresh() != true);
-#define DEBUG(d) d->DEBUG();
+#include "macros.hpp"
 
 int main(int argc, char* argv[]) {
+
+	(void)argc; // -Wunused-parameter
+	(void)argv; // -Wunused-parameter
 
 	Data* d = new Data();
 

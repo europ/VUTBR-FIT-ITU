@@ -1,10 +1,17 @@
 #include <cstdio>
+#include <regex>
 #include <iostream>
 
 #include "analyser.hpp"
 #include "constants.hpp"
 
 //#################################################################################################
+// VARIABLES
+
+std::regex regex_pattern (REGEX_HIDDEN_WIFI_NETWORK);
+
+//#################################################################################################
+// FUNCTIONS
 
 std::string uitos(unsigned int num) {
     char str[UISL];
@@ -51,10 +58,29 @@ bool execute_cmd(std::vector<std::string>& data, std::string cmd) {
 
 std::string DEBUG_wifi_network(const wifi_network* ID) {
     std::string str;
+
     str += "UID:      " + uitos(ID->UID) + "\n";
-    str += "SSID:     " + ID->SSID       + "\n";
+
+    str += "SSID:     ";
+    if (std::regex_match(ID->SSID,regex_pattern)) {
+        str += STRING_HIDDEN_WIFI_NETWORK;
+    }
+    else {
+        str += ID->SSID;
+    }
+    str += "\n";
+
     str += "BSSID:    " + ID->BSSID      + "\n";
-    str += "SSIDHEX:  " + ID->SSIDHEX    + "\n";
+
+    str += "SSIDHEX:  ";
+    if (std::regex_match(ID->SSID,regex_pattern)) {
+        str += STRING_HIDDEN_WIFI_NETWORK;
+    }
+    else {
+        str += ID->SSIDHEX;
+    }
+    str += "\n";
+
     str += "CHAN:     " + ID->CHAN       + "\n";
     str += "FREQ:     " + ID->FREQ       + "\n";
     str += "RATE:     " + ID->RATE       + "\n";
@@ -65,13 +91,14 @@ std::string DEBUG_wifi_network(const wifi_network* ID) {
 }
 
 //#################################################################################################
+// CLASS DATA METHODS
 
 Data::Data() { // Constructor
     count = 0;
     data.clear();
 }
 
-void Data::DEBUG() {
+void Data::debug() {
     if (data.empty()) {
         std::cout << "NO DATA\n" << std::endl;
     }
@@ -172,7 +199,12 @@ bool Data::refresh() {
 std::string Data::get_SSID(unsigned int idx) {
     std::string str = STRING_EMPTY;
     if ((!data.empty()) && (idx <= count)) {
-        str = data[idx].SSID;
+        if (std::regex_match(data[idx].SSID,regex_pattern)) {
+            str = STRING_HIDDEN_WIFI_NETWORK;
+        }
+        else {
+            str = data[idx].SSID;
+        }
     }
     return str;
 }
@@ -188,7 +220,12 @@ std::string Data::get_BSSID(unsigned int idx) {
 std::string Data::get_SSIDHEX(unsigned int idx) {
     std::string str = STRING_EMPTY;
     if ((!data.empty()) && (idx <= count)) {
-        str = data[idx].SSIDHEX;
+        if (std::regex_match(data[idx].SSIDHEX,regex_pattern)) {
+            str = STRING_HIDDEN_WIFI_NETWORK;
+        }
+        else {
+            str = data[idx].SSIDHEX;
+        }
     }
     return str;
 }

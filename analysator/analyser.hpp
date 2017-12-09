@@ -61,7 +61,7 @@ class Data {
         std::string get_RSNFLAGS(unsigned int idx);
 
         // print all wifi networks
-        void DEBUG();
+        void debug();
 };
 
 #endif
