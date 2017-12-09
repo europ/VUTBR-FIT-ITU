@@ -116,13 +116,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
         if(i<size){
             lines[i]->setGeometry(50*i+8,4+4*(100-y),15,400);
+            ssid_names[i]->setText(d.get_SSID(i).c_str());
         }
         else{
             lines[i]->setGeometry(0,404,481,1);
+            ssid_names[i]->setText("");
         }
 
         lines[i]->setStyleSheet( QString("background-color:%1;").arg(colours[i]));// background-color: colours[i]; ");
-        ssid_names[i]->setText(d.get_SSID(i).c_str());
         ssid_names[i]->move(50*i+50, 500);
         ssid_names[i]->setFixedSize( 60, 20 );
         ssid_names[i]->setStyleSheet( "background-color: #264f93 ;border: 0px;color: white ; text-align: center");
@@ -134,14 +135,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 
- /*   QPushButton *buttonA = new QPushButton(this);
-    buttonA->setText("ans");
-    buttonA->move(10, 10);
-    buttonA->setStyleSheet( "background-color: #264f93 ;border: 0px;color: white ");
-    buttonA->setFixedSize( 58, 20 );
-    //buttonA->resize(buttonA->minimumSize());
-
-*/
 
     ui->pushButton_3->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_2->setStyleSheet("background-color: #f4f38b; color: black");
@@ -154,7 +147,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-//}
 
 MainWindow::~MainWindow()
 {
@@ -239,26 +231,35 @@ void MainWindow::show_network_info(){
     QVBoxLayout *layout = new QVBoxLayout();
 
 
-    QLabel *label[10];
-    for(int i=0; i< 10; i++){
+    QLabel *label[7];
+    for(int i=0; i< 7; i++){
         label[i] = new QLabel(this);
-        //label[i]->setText("Random String");
-        //layout->addWidget(label[i]);
     }
-   // wdg->setLayout(layout);
 
-    label[0]->setText("gecc");
-    label[1]->setText("gecc");
-    label[2]->setText("gecc");
-    label[3]->setText("gecc");
-    label[4]->setText("gecc");
-    label[5]->setText("gecc");
-    label[6]->setText("gecc");
-    label[7]->setText("gecc");
-    label[8]->setText("gecc");
-    label[9]->setText("gecc");
 
-    for(int i=0; i< 10; i++){
+    std::string tmpstring = std::string("SSID: ") + d.get_SSID(index);
+    label[0]->setText(tmpstring.c_str());
+
+    tmpstring = std::string("BSSID: ") + d.get_BSSID(index);
+    label[1]->setText(tmpstring.c_str());
+
+    tmpstring = std::string("CHANNEL: ") + d.get_CHAN(index);
+    label[2]->setText(tmpstring.c_str());
+
+    tmpstring = std::string("FREQUENCY: ") + d.get_FREQ(index);
+    label[3]->setText(tmpstring.c_str());
+
+    tmpstring = std::string("RATE: ") + d.get_RATE(index);
+    label[4]->setText(tmpstring.c_str());
+
+    tmpstring = std::string("SIGNAL: ") + d.get_SIGNAL(index);
+    label[5]->setText(tmpstring.c_str());
+
+    tmpstring = std::string("SECURITY: ") + d.get_SECURITY(index);
+    label[6]->setText(tmpstring.c_str());
+
+
+    for(int i=0; i< 7; i++){
         layout->addWidget(label[i]);
     }
 
