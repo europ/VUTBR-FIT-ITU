@@ -272,7 +272,12 @@ std::string Data::get_SIGNAL(unsigned int idx) {
 std::string Data::get_SECURITY(unsigned int idx) {
     std::string str = STRING_EMPTY;
     if ((!data.empty()) && (idx <= count)) {
-        str = data[idx].SECURITY;
+        if (std::regex_match(data[idx].SECURITY,regex_pattern)) {
+            str = STRING_WIFI_WITHOUT_SECURITY;
+        }
+        else {
+            str = data[idx].SECURITY;
+        }
     }
     return str;
 }

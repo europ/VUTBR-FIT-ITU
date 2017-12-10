@@ -10,6 +10,7 @@
 // hidden wifi stuff
 #define REGEX_HIDDEN_WIFI_NETWORK "\\s*--\\s*" // matching regex of SSID and SSIDHEX to find hidden wifi
 #define STRING_HIDDEN_WIFI_NETWORK "HIDDEN" // replacing string of SSID and SSIDHEX when wifi is hidden
+#define STRING_WIFI_WITHOUT_SECURITY "NONE" // replacing string of SECURITY when wifi is nonsecure
 
 // shell commands
 #define CMD_SSID     "nmcli -f SSID      dev wifi | tail -n +3"

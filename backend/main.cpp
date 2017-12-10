@@ -10,7 +10,9 @@ int main(int argc, char* argv[]) {
 
     LOAD(d); // load data
 
-    DEBUG(d); // print info
+    //DEBUG(d);
+
+    DEBUG_METHOD_RESULT(d,get_SECURITY);
 
     return 0;
 }
