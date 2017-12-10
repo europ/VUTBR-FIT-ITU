@@ -1,7 +1,7 @@
 backend/main
 backend/*.o
 
-src/ITU.pro.user
-src/ITU.pro.user.*
+ITU.pro.user
+ITU.pro.user.*
 
 build-ITU-Desktop-Debug/
