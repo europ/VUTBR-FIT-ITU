@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QFrame>
+
 namespace Ui {
 class MainWindow;
 }
@@ -32,6 +33,16 @@ private slots:
         void update();
 
         void show_network_info();
+
+
+        void crypted_networks_filter();
+
+        void free_networks_filter();
+
+        void all_networks_filter();
+
+        void channel_filter();
+
 };
 
 #endif // MAINWINDOW_H

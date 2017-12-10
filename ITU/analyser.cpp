@@ -4,6 +4,8 @@
 
 #include "analyser.hpp"
 #include "constants.hpp"
+#include "macros.hpp"
+
 
 //#################################################################################################
 // VARIABLES
@@ -246,9 +248,19 @@ std::string Data::get_SIGNAL(unsigned int idx) {
 
 std::string Data::get_SECURITY(unsigned int idx) {
     std::string str = STRING_EMPTY;
+   // if ((!data.empty()) && (idx <= count)) {
+   //    str = data[idx].SECURITY;
+   // }
+
     if ((!data.empty()) && (idx <= count)) {
-        str = data[idx].SECURITY;
+        if (std::regex_match(data[idx].SECURITY,regex_pattern)) {
+            str = "NONE";
+        }
+        else {
+            str = data[idx].SECURITY;
+        }
     }
+
     return str;
 }
 

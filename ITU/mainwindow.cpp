@@ -20,13 +20,14 @@
 
 #define MAX_NETWORKS 10
 
-
+//global variables
 bool geci = false;
 QFrame * lines[MAX_NETWORKS];
 QPushButton * ssid_names[MAX_NETWORKS];
 int wifinumber;
 Data d;
-
+int channel = 0;
+int sec_filter = 0;
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -62,11 +63,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox->setView(listView);
 
     ui->comboBox->setStyleSheet("background-color: #f4f38b; color: black");
+
+    connect(ui->comboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(channel_filter()));
+
+
+    //radio buttons
     ui->radioButton->setStyleSheet("background-color: #f4f38b; color: black");
     ui->radioButton_2->setStyleSheet("background-color: #f4f38b; color: black");
     ui->radioButton_3->setStyleSheet("background-color: #f4f38b; color: black");
 
-
+    //connecting filters to mslots
+    connect(ui->radioButton_3,SIGNAL(clicked()),this,SLOT(all_networks_filter()));
+    connect(ui->radioButton,SIGNAL(clicked()),this,SLOT(crypted_networks_filter()));
+    connect(ui->radioButton_2,SIGNAL(clicked()),this,SLOT(free_networks_filter()));
 
     //labels settings
     ui->label->setStyleSheet("color: white");
@@ -99,15 +108,19 @@ MainWindow::MainWindow(QWidget *parent) :
     */
 
 
+    //styling pushbuttons
+    ui->pushButton_3->setStyleSheet("background-color: red; color: #f4f38b ");
+    ui->pushButton_2->setStyleSheet("background-color: #f4f38b; color: black");
+
+
     connect(ui->pushButton_2,SIGNAL(released()),this,SLOT(button2_press()));
     connect(ui->pushButton_3,SIGNAL(released()),this,SLOT(button3_press()));
 
 
+    //creating show of networks graphically
     for(unsigned i = 0; i< MAX_NETWORKS;i++){
         lines[i] = new QFrame(ui->frame);
         ssid_names[i] = new QPushButton(this);
-        //lines[i]->setFrameShape(QFrame::HLine);
-        //lines[i]->setFrameShadow(QFrame::Sunken);
         int y;
 
         if(i<size){
@@ -136,10 +149,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-    ui->pushButton_3->setStyleSheet("background-color: red; color: #f4f38b ");
-    ui->pushButton_2->setStyleSheet("background-color: #f4f38b; color: black");
-
-
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->start(10000);
@@ -153,15 +162,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+//slot for clicked pushbutton 2
 void MainWindow::button2_press(){
     QPushButton * button = (QPushButton*)sender();
 
     ui->pushButton_3->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_2->setStyleSheet("background-color: #f4f38b; color: black");
-    //ui->label->setText(button->text());
+
 }
 
 
+//slot for clicked pushbutton 3
 void MainWindow::button3_press(){
     QPushButton * button = (QPushButton*)sender();
     ui->pushButton_2->setStyleSheet("background-color: red; color: #f4f38b ");
@@ -169,39 +181,52 @@ void MainWindow::button3_press(){
 }
 
 
+//updating networks
 void MainWindow::update(){
-    LOAD(d);
-    unsigned size = SIZE(d);
+
+    if(sec_filter==1){//free networks
+        MainWindow::free_networks_filter();
+    }
+    else if(sec_filter==2){//secured networks
+        MainWindow::crypted_networks_filter();
+    }
+    else{//all networks
+        LOAD(d);
+        unsigned size = SIZE(d);
 
 
-    std::cout << size << std::endl;
+        std::cout << size << std::endl;
 
 
-    for(unsigned i = 0; i< MAX_NETWORKS;i++){
+        for(unsigned i = 0; i< MAX_NETWORKS;i++){
 
-        int y;
+            int y;
 
-        if(i<size){
-            y = atoi(d.get_SIGNAL(i).c_str());
+            if(i<size){
+                y = atoi(d.get_SIGNAL(i).c_str());
+            }
+
+
+            if(i < size){;
+                lines[i]->setGeometry(50*i+8,4+4*(100-y),15,400);
+                ssid_names[i]->setText(d.get_SSID(i).c_str());
+                ssid_names[i]->move(50*i+50, 500);
+            }
+            else{
+                 lines[i]->setGeometry(0,404,481,1);
+                 ssid_names[i]->setText("");
+            }
+
+            lines[i]->repaint();
+            ssid_names[i]->repaint();
         }
-
-
-        if(i < size){;
-            lines[i]->setGeometry(50*i+8,4+4*(100-y),15,400);
-            ssid_names[i]->setText(d.get_SSID(i).c_str());
-        }
-        else{
-             lines[i]->setGeometry(0,404,481,1);
-             ssid_names[i]->setText("");
-        }
-
-        lines[i]->repaint();
-        ssid_names[i]->repaint();
     }
 
 
 }
 
+
+//window with clicked network information
 void MainWindow::show_network_info(){
 
     QPushButton * button = (QPushButton*)sender();
@@ -275,4 +300,140 @@ void MainWindow::show_network_info(){
     );
 
     wdg->show();
+}
+
+void MainWindow::crypted_networks_filter(){
+
+sec_filter = 2;
+LOAD(d);
+unsigned size = SIZE(d);
+int tmpi = 0;
+
+
+for(unsigned i = 0; i< MAX_NETWORKS;i++){
+
+    int y;
+
+    if(i<size){
+        y = atoi(d.get_SIGNAL(i).c_str());
+    }
+
+
+   /* if(i < size && (d.get_SECURITY(i) != "NONE") ){;
+        lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
+        ssid_names[i]->setText(d.get_SSID(i).c_str());
+        ssid_names[i]->move(50*tmpi+50, 500);
+        tmpi++;
+    }
+    else{
+         lines[i]->setGeometry(0,404,481,1);
+
+         ssid_names[i]->setText("");
+
+         ssid_names[i]->move(0, 550);
+    }
+*/
+
+    if(channel > 0){
+        if(i < size && (d.get_SECURITY(i) != "NONE") && (d.get_CHAN(i) == std::to_string(channel))){;
+            lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
+            ssid_names[i]->setText(d.get_SSID(i).c_str());
+            ssid_names[i]->move(50*tmpi+50, 500);
+            tmpi++;
+            PRINT("GECIII\n");
+        }
+        else{
+             lines[i]->setGeometry(0,404,481,1);
+             //ssid_names[i]->move(50*tmpi+50, 550);
+             ssid_names[i]->setText("");
+             ssid_names[i]->move(0, 550);
+        }
+    }
+    else{
+        if(i < size && (d.get_SECURITY(i) != "NONE") ){;
+            lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
+            ssid_names[i]->setText(d.get_SSID(i).c_str());
+            ssid_names[i]->move(50*tmpi+50, 500);
+            tmpi++;
+        }
+        else{
+             lines[i]->setGeometry(0,404,481,1);
+             //ssid_names[i]->move(50*tmpi+50, 550);
+             ssid_names[i]->setText("");
+             ssid_names[i]->move(0, 550);
+        }
+    }
+
+    lines[i]->repaint();
+    ssid_names[i]->repaint();
+
+}
+
+}
+
+void MainWindow::free_networks_filter(){
+
+sec_filter = 1;
+LOAD(d);
+unsigned size = SIZE(d);
+int tmpi = 0;
+
+
+for(unsigned i = 0; i< MAX_NETWORKS;i++){
+
+
+    int y;
+
+    if(i<size){
+        y = atoi(d.get_SIGNAL(i).c_str());
+    }
+
+    if(channel > 0){
+        if(i < size && (d.get_SECURITY(i) == "NONE") && (d.get_CHAN(i) == std::to_string(channel))){;
+            lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
+            ssid_names[i]->setText(d.get_SSID(i).c_str());
+            ssid_names[i]->move(50*tmpi+50, 500);
+            tmpi++;
+        }
+        else{
+             lines[i]->setGeometry(0,404,481,1);
+             //ssid_names[i]->move(50*tmpi+50, 550);
+             ssid_names[i]->setText("");
+             ssid_names[i]->move(0, 550);
+        }
+    }
+    else{
+        if(i < size && (d.get_SECURITY(i) == "NONE") ){;
+            lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
+            ssid_names[i]->setText(d.get_SSID(i).c_str());
+            ssid_names[i]->move(50*tmpi+50, 500);
+            tmpi++;
+        }
+        else{
+             lines[i]->setGeometry(0,404,481,1);
+             //ssid_names[i]->move(50*tmpi+50, 550);
+             ssid_names[i]->setText("");
+             ssid_names[i]->move(0, 550);
+        }
+    }
+
+
+    lines[i]->repaint();
+    ssid_names[i]->repaint();
+
+}
+
+
+}
+
+void MainWindow::all_networks_filter(){
+    sec_filter = 0;
+    MainWindow::update();
+
+}
+
+void MainWindow::channel_filter(){
+    QComboBox * box = (QComboBox*)sender();
+    channel = box->currentIndex();
+    MainWindow::update();
 }
