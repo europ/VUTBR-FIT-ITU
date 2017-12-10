@@ -183,6 +183,7 @@ void MainWindow::button3_press(){
 
 //updating networks
 void MainWindow::update(){
+    int tmpi = 0;
 
     if(sec_filter==1){//free networks
         MainWindow::free_networks_filter();
@@ -207,7 +208,7 @@ void MainWindow::update(){
             }
 
 
-            if(i < size){;
+           /* if(i < size){;
                 lines[i]->setGeometry(50*i+8,4+4*(100-y),15,400);
                 ssid_names[i]->setText(d.get_SSID(i).c_str());
                 ssid_names[i]->move(50*i+50, 500);
@@ -215,6 +216,35 @@ void MainWindow::update(){
             else{
                  lines[i]->setGeometry(0,404,481,1);
                  ssid_names[i]->setText("");
+            }
+*/
+            if(channel > 0){
+                if(i < size && (d.get_CHAN(i) == std::to_string(channel))){;
+                    lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
+                    ssid_names[i]->setText(d.get_SSID(i).c_str());
+                    ssid_names[i]->move(50*tmpi+50, 500);
+                    tmpi++;
+                }
+                else{
+                     lines[i]->setGeometry(0,404,481,1);
+                     //ssid_names[i]->move(50*tmpi+50, 550);
+                     ssid_names[i]->setText("");
+                     ssid_names[i]->move(0, 550);
+                }
+            }
+            else{
+                if(i < size){;
+                    lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
+                    ssid_names[i]->setText(d.get_SSID(i).c_str());
+                    ssid_names[i]->move(50*tmpi+50, 500);
+                    tmpi++;
+                }
+                else{
+                     lines[i]->setGeometry(0,404,481,1);
+                     //ssid_names[i]->move(50*tmpi+50, 550);
+                     ssid_names[i]->setText("");
+                     ssid_names[i]->move(0, 550);
+                }
             }
 
             lines[i]->repaint();
@@ -340,7 +370,6 @@ for(unsigned i = 0; i< MAX_NETWORKS;i++){
             ssid_names[i]->setText(d.get_SSID(i).c_str());
             ssid_names[i]->move(50*tmpi+50, 500);
             tmpi++;
-            PRINT("GECIII\n");
         }
         else{
              lines[i]->setGeometry(0,404,481,1);
