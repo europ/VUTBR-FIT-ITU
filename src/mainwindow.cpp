@@ -48,7 +48,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //set background of window
     this->setStyleSheet("background-color:#264f93 ;");
 
-//#001d77   #4286f4  buttons:#eae600
 
     //set button colors to yellow
     ui->pushButton->setStyleSheet("background-color: #f4f38b; color: black");
@@ -81,29 +80,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_4->setStyleSheet("color: white");
     ui->label_5->setStyleSheet("color: white");
 
-    //ui->line->setLine(0,0,200,200)
-   // QLine *line5;
-    //line5 = new QLine();
-   // line5->setLine(0,0,200,200);
-
 
     //colors for networks
     QString colours[10] = {"cyan", "magenta", "red",
                           "darkRed", "darkCyan", "darkMagenta",
                           "green","darkGreen", "yellow",
                           "blue"};
-
-    //vytvaranie ciari
-
-    /*QFrame *line5;
-    line5 = new QFrame(ui->frame);
-    line5->setFrameShape(QFrame::HLine);
-    line5->setFrameShadow(QFrame::Sunken);
-    line5->setGeometry(0,100,481,1);
-    //line5->setObjectName("myObject");
-    //line5->setStyleSheet("#myObject { border: 1px solid red; }");
-    line5->setStyleSheet(" border: 1px solid red;");
-    */
 
 
     //styling pushbuttons
@@ -163,7 +145,7 @@ MainWindow::~MainWindow()
 
 //slot for clicked pushbutton 2
 void MainWindow::button2_press(){
-    QPushButton * button = (QPushButton*)sender();
+    //QPushButton * button = (QPushButton*)sender();
 
     ui->pushButton_3->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_2->setStyleSheet("background-color: #f4f38b; color: black");
@@ -173,7 +155,7 @@ void MainWindow::button2_press(){
 
 //slot for clicked pushbutton 3
 void MainWindow::button3_press(){
-    QPushButton * button = (QPushButton*)sender();
+    //QPushButton * button = (QPushButton*)sender();
     ui->pushButton_2->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_3->setStyleSheet("background-color: #f4f38b; color: black");
 }
@@ -206,16 +188,6 @@ void MainWindow::update(){
             }
 
 
-           /* if(i < size){;
-                lines[i]->setGeometry(50*i+8,4+4*(100-y),15,400);
-                ssid_names[i]->setText(d.get_SSID(i).c_str());
-                ssid_names[i]->move(50*i+50, 500);
-            }
-            else{
-                 lines[i]->setGeometry(0,404,481,1);
-                 ssid_names[i]->setText("");
-            }
-*/
             if(channel > 0){
                 if(i < size && (d.get_CHAN(i) == std::to_string(channel))){;
                     lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
@@ -225,7 +197,6 @@ void MainWindow::update(){
                 }
                 else{
                      lines[i]->setGeometry(0,404,481,1);
-                     //ssid_names[i]->move(50*tmpi+50, 550);
                      ssid_names[i]->setText("");
                      ssid_names[i]->move(0, 550);
                 }
@@ -239,7 +210,6 @@ void MainWindow::update(){
                 }
                 else{
                      lines[i]->setGeometry(0,404,481,1);
-                     //ssid_names[i]->move(50*tmpi+50, 550);
                      ssid_names[i]->setText("");
                      ssid_names[i]->move(0, 550);
                 }
@@ -272,7 +242,6 @@ void MainWindow::show_network_info(){
         }
     }
 
-    //printf("%d\n",index);
 
     QWidget *wdg = new QWidget;
     wdg->setMinimumSize(400, 300);
@@ -347,20 +316,6 @@ for(unsigned i = 0; i< MAX_NETWORKS;i++){
     }
 
 
-   /* if(i < size && (d.get_SECURITY(i) != "NONE") ){;
-        lines[i]->setGeometry(50*tmpi+8,4+4*(100-y),15,400);
-        ssid_names[i]->setText(d.get_SSID(i).c_str());
-        ssid_names[i]->move(50*tmpi+50, 500);
-        tmpi++;
-    }
-    else{
-         lines[i]->setGeometry(0,404,481,1);
-
-         ssid_names[i]->setText("");
-
-         ssid_names[i]->move(0, 550);
-    }
-*/
 
     if(channel > 0){
         if(i < size && (d.get_SECURITY(i) != "NONE") && (d.get_CHAN(i) == std::to_string(channel))){;
@@ -371,7 +326,6 @@ for(unsigned i = 0; i< MAX_NETWORKS;i++){
         }
         else{
              lines[i]->setGeometry(0,404,481,1);
-             //ssid_names[i]->move(50*tmpi+50, 550);
              ssid_names[i]->setText("");
              ssid_names[i]->move(0, 550);
         }
@@ -385,7 +339,6 @@ for(unsigned i = 0; i< MAX_NETWORKS;i++){
         }
         else{
              lines[i]->setGeometry(0,404,481,1);
-             //ssid_names[i]->move(50*tmpi+50, 550);
              ssid_names[i]->setText("");
              ssid_names[i]->move(0, 550);
         }
@@ -424,7 +377,6 @@ for(unsigned i = 0; i< MAX_NETWORKS;i++){
         }
         else{
              lines[i]->setGeometry(0,404,481,1);
-             //ssid_names[i]->move(50*tmpi+50, 550);
              ssid_names[i]->setText("");
              ssid_names[i]->move(0, 550);
         }
@@ -438,7 +390,6 @@ for(unsigned i = 0; i< MAX_NETWORKS;i++){
         }
         else{
              lines[i]->setGeometry(0,404,481,1);
-             //ssid_names[i]->move(50*tmpi+50, 550);
              ssid_names[i]->setText("");
              ssid_names[i]->move(0, 550);
         }
