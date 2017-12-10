@@ -1,4 +1,7 @@
-*.o
+backend/main
+backend/*.o
+
 ITU/ITU.pro.user
 ITU/ITU.pro.user.*
+
 build-ITU-Desktop-Debug/
