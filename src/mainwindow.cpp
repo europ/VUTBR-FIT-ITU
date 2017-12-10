@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButton_3->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_2->setStyleSheet("background-color: #f4f38b; color: black");
 
-
+    connect(ui->pushButton,SIGNAL(released()),this,SLOT(show_setup()));
     connect(ui->pushButton_2,SIGNAL(released()),this,SLOT(button2_press()));
     connect(ui->pushButton_3,SIGNAL(released()),this,SLOT(button3_press()));
 
@@ -116,7 +116,7 @@ MainWindow::MainWindow(QWidget *parent) :
             ssid_names[i]->setText("");
         }
 
-        lines[i]->setStyleSheet( QString("background-color:%1;").arg(colours[i]));// background-color: colours[i]; ");
+        lines[i]->setStyleSheet( QString("background-color:%1;").arg(colours[i]));
         ssid_names[i]->move(50*i+50, 500);
         ssid_names[i]->setFixedSize( 60, 20 );
         ssid_names[i]->setStyleSheet( "background-color: #264f93 ;border: 0px;color: white ; text-align: center");
@@ -145,8 +145,6 @@ MainWindow::~MainWindow()
 
 //slot for clicked pushbutton 2
 void MainWindow::button2_press(){
-    //QPushButton * button = (QPushButton*)sender();
-
     ui->pushButton_3->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_2->setStyleSheet("background-color: #f4f38b; color: black");
 
@@ -155,7 +153,6 @@ void MainWindow::button2_press(){
 
 //slot for clicked pushbutton 3
 void MainWindow::button3_press(){
-    //QPushButton * button = (QPushButton*)sender();
     ui->pushButton_2->setStyleSheet("background-color: red; color: #f4f38b ");
     ui->pushButton_3->setStyleSheet("background-color: #f4f38b; color: black");
 }
@@ -223,6 +220,41 @@ void MainWindow::update(){
 
 }
 
+void MainWindow::show_setup(){
+    QWidget *wdg = new QWidget;
+    wdg->setMinimumSize(250, 120);
+    wdg->setMaximumSize(250, 120);
+    wdg->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint);
+    wdg->setWindowTitle("Recommended settings");
+
+    QVBoxLayout *layout = new QVBoxLayout();
+
+    QLabel *label1 = new QLabel(this);
+    QLabel *label2 = new QLabel(this);
+    QLabel *label3 = new QLabel(this);
+
+    label1->setText("Channel: 10");
+    label2->setText("Security: WPA2");
+    label3->setText("If available use 5Ghz");
+
+    layout->addWidget(label1);
+    layout->addWidget(label2);
+    layout->addWidget(label3);
+
+
+    wdg->setLayout(layout);
+
+    wdg->setGeometry(
+        QStyle::alignedRect(
+            Qt::LeftToRight,
+            Qt::AlignCenter,
+            wdg->size(),
+            qApp->desktop()->availableGeometry()
+        )
+    );
+
+    wdg->show();
+}
 
 //window with clicked network information
 void MainWindow::show_network_info(){

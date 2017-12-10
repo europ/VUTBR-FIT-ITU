@@ -43,6 +43,8 @@ private slots:
 
         void channel_filter();
 
+        void show_setup();
+
 };
 
 #endif // MAINWINDOW_H
