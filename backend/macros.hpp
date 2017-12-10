@@ -8,9 +8,9 @@
 #define SIZE(data) data->size();
 #define DEBUG(data) data->debug();
 #define DEBUG_METHOD_RESULT(data,method) { \
-	for (unsigned int i = 0; i < data->size(); i++) { \
-		std::cout << data->method(i) << std::endl; \
-	} \
+    for (unsigned int i = 0; i < data->size(); i++) { \
+        std::cout << data->method(i) << std::endl; \
+    } \
 }
 
 // printing utilities

@@ -34,7 +34,7 @@ class Data {
          * Method returns actual data (vector) size.
          */
         unsigned int size();
-        
+
         /*
          * RESET is required BEFORE refresh()
          * return value:
@@ -45,7 +45,7 @@ class Data {
 
         /*
          * METHODS get_*(idx)
-         * 
+         *
          * return value:
          *     on ERROR empty string
          *     on SUCCESS string

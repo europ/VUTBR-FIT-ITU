@@ -39,8 +39,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     unsigned size = SIZE(d);
 
-    DEBUG(d); // print info
-
     std::string tmp = d.get_SSID(5);
 
 

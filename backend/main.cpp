@@ -3,15 +3,14 @@
 
 int main(int argc, char* argv[]) {
 
-	(void)argc; // -Wunused-parameter
-	(void)argv; // -Wunused-parameter
+    (void)argc; // -Wunused-parameter
+    (void)argv; // -Wunused-parameter
 
-	Data* d = new Data();
+    Data* d = new Data();
 
-	LOAD(d); // load data
+    LOAD(d); // load data
 
-	DEBUG(d); // print info
+    DEBUG(d); // print info
 
-	return 0;
+    return 0;
 }
-

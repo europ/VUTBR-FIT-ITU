@@ -5,8 +5,11 @@
 #include <QDesktopWidget>
 
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+
+    (void)argc; // -Wunused-parameter
+    (void)argv; // -Wunused-parameter
+
     QApplication a(argc, argv);
     MainWindow* main_window = new MainWindow;
 
@@ -18,6 +21,7 @@ int main(int argc, char *argv[])
             qApp->desktop()->availableGeometry()
         )
     );
+
     main_window->setMinimumSize(800, 600);
     main_window->setMaximumSize(800, 600);
     main_window->show();
