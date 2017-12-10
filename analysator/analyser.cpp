@@ -2,6 +2,12 @@
 #include <regex>
 #include <iostream>
 
+// trim
+#include <algorithm>
+#include <functional>
+#include <cctype>
+#include <locale>
+
 #include "analyser.hpp"
 #include "constants.hpp"
 
@@ -12,6 +18,25 @@ std::regex regex_pattern (REGEX_HIDDEN_WIFI_NETWORK);
 
 //#################################################################################################
 // FUNCTIONS
+
+// trim from start
+static inline std::string &ltrim(std::string &s) {
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+            std::not1(std::ptr_fun<int, int>(std::isspace))));
+    return s;
+}
+
+// trim from end
+static inline std::string &rtrim(std::string &s) {
+    s.erase(std::find_if(s.rbegin(), s.rend(),
+            std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s.end());
+    return s;
+}
+
+// trim from both ends
+static inline std::string &trim(std::string &s) {
+    return ltrim(rtrim(s));
+}
 
 std::string uitos(unsigned int num) {
     char str[UISL];
@@ -150,15 +175,15 @@ bool Data::refresh() {
 
         // tmp initialization
         tmp.UID      = i;
-        tmp.SSID     = VEC_SSID.front();
-        tmp.BSSID    = VEC_BSSID.front();
-        tmp.SSIDHEX  = VEC_SSIDHEX.front();
-        tmp.CHAN     = VEC_CHAN.front();
-        tmp.FREQ     = VEC_FREQ.front();
-        tmp.RATE     = VEC_RATE.front();
-        tmp.SIGNAL   = VEC_SIGNAL.front();
-        tmp.SECURITY = VEC_SECURITY.front();
-        tmp.RSNFLAGS = VEC_RSNFLAGS.front();
+        tmp.SSID     = trim(VEC_SSID.front());
+        tmp.BSSID    = trim(VEC_BSSID.front());
+        tmp.SSIDHEX  = trim(VEC_SSIDHEX.front());
+        tmp.CHAN     = trim(VEC_CHAN.front());
+        tmp.FREQ     = trim(VEC_FREQ.front());
+        tmp.RATE     = trim(VEC_RATE.front());
+        tmp.SIGNAL   = trim(VEC_SIGNAL.front());
+        tmp.SECURITY = trim(VEC_SECURITY.front());
+        tmp.RSNFLAGS = trim(VEC_RSNFLAGS.front());
 
         // save network
         data.push_back(tmp);
